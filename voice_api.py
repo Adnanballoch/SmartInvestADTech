@@ -1,3 +1,16 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+import os
+from botpress_client import BotpressClient
+
+app = FastAPI()
+
+API_ID = os.getenv("BOTPRESS_CHAT_API_ID") or "bot_16e43556-ccfc-4fea-b39b-a9eefac04ef3"
+USER_KEY = os.getenv("BOTPRESS_TOKEN") or "BOTPRESS_TOKEN_REMOVED_FROM_HISTORY"
+
+class VoiceInput(BaseModel):
+    text: str
+
 @app.post("/api/voice")
 async def handle_voice_input(data: VoiceInput):
     user_text = data.text
